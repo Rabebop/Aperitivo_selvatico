@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>RPG Battle App</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                "colors": {
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#90003b",
+                        "surface-bright": "#45324e",
+                        "primary-fixed-dim": "#d2cc00",
+                        "primary-fixed": "#f0e800",
+                        "on-tertiary": "#660028",
+                        "surface-container-lowest": "#180721",
+                        "outline": "#949277",
+                        "on-primary-fixed-variant": "#4b4900",
+                        "on-primary-container": "#6b6700",
+                        "surface-container": "#2a1833",
+                        "tertiary-fixed": "#ffd9de",
+                        "secondary-container": "#24ffcd",
+                        "on-surface-variant": "#cbc7aa",
+                        "on-background": "#f5d9fe",
+                        "primary-container": "#f0e800",
+                        "on-primary-fixed": "#1e1c00",
+                        "surface-variant": "#412e4a",
+                        "secondary": "#ffffff",
+                        "tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb2bf",
+                        "surface-container-highest": "#412e4a",
+                        "on-secondary": "#00382b",
+                        "inverse-on-surface": "#3c2945",
+                        "surface-container-high": "#35233e",
+                        "outline-variant": "#494831",
+                        "inverse-surface": "#f5d9fe",
+                        "on-primary": "#343200",
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#c70054",
+                        "surface-tint": "#d2cc00",
+                        "on-surface": "#f5d9fe",
+                        "secondary-fixed-dim": "#00e0b3",
+                        "inverse-primary": "#646100",
+                        "surface": "#1d0c26",
+                        "on-secondary-fixed": "#002118",
+                        "on-secondary-fixed-variant": "#00513f",
+                        "surface-container-low": "#26142f",
+                        "surface-dim": "#1d0c26",
+                        "secondary-fixed": "#24ffcd",
+                        "on-tertiary-fixed": "#3f0016",
+                        "background": "#1d0c26",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#ffd9de",
+                        "primary": "#ffffff",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#00725a"
+                },
+                "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                },
+                "spacing": {
+                        "margin-desktop": "32px",
+                        "gutter": "8px",
+                        "container-padding": "12px",
+                        "unit": "4px",
+                        "margin-mobile": "16px"
+                },
+                "fontFamily": {
+                        "headline-md": [
+                                "Space Mono"
+                        ],
+                        "dialogue-text": [
+                                "Space Mono"
+                        ],
+                        "body-sm": [
+                                "Courier Prime"
+                        ],
+                        "body-lg": [
+                                "Courier Prime"
+                        ],
+                        "label-bold": [
+                                "Space Mono"
+                        ],
+                        "display-lg": [
+                                "Space Mono"
+                        ]
+                },
+                "fontSize": {
+                        "headline-md": [
+                                "24px",
+                                {
+                                        "lineHeight": "32px",
+                                        "letterSpacing": "0em",
+                                        "fontWeight": "700"
+                                }
+                        ],
+                        "dialogue-text": [
+                                "20px",
+                                {
+                                        "lineHeight": "28px",
+                                        "letterSpacing": "0em",
+                                        "fontWeight": "400"
+                                }
+                        ],
+                        "body-sm": [
+                                "14px",
+                                {
+                                        "lineHeight": "20px",
+                                        "letterSpacing": "0.02em",
+                                        "fontWeight": "400"
+                                }
+                        ],
+                        "body-lg": [
+                                "18px",
+                                {
+                                        "lineHeight": "24px",
+                                        "letterSpacing": "0em",
+                                        "fontWeight": "400"
+                                }
+                        ],
+                        "label-bold": [
+                                "12px",
+                                {
+                                        "lineHeight": "16px",
+                                        "letterSpacing": "0.1em",
+                                        "fontWeight": "700"
+                                }
+                        ],
+                        "display-lg": [
+                                "32px",
+                                {
+                                        "lineHeight": "40px",
+                                        "letterSpacing": "-0.02em",
+                                        "fontWeight": "700"
+                                }
+                        ]
+                }
+        },
+            },
+          }
+    </script>
+    <style>
+        body {
+            background-color: #2D1B36; /* Deep Plum Purple */
+            color: #f5d9fe;
+            overflow: hidden;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Brutalist Retro Box Shadow */
+        .retro-box {
+            border: 2px solid #FFF700;
+            background-color: #000000;
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        .retro-button {
+            border: 2px solid #FFF700;
+            background-color: #2D1B36;
+            color: #f5d9fe;
+            transition: all 0.1s steps(2, end);
+        }
+
+        .retro-button:active {
+            transform: translate(2px, 2px);
+            background-color: #FFF700;
+            color: #000000;
+            box-shadow: none;
+        }
+
+        /* Typewriter Cursor */
+        .cursor::after {
+            content: '▼';
+            animation: blink 1s step-start infinite;
+            color: #00FFCC; /* Mint Green */
+            margin-left: 4px;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Shake Animation */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        /* Faint Animation */
+        @keyframes faint {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100px); opacity: 0; }
+        }
+
+        .faint {
+            animation: faint 1s forwards;
+        }
+
+        /* Progress Bar Segmented */
+        .hp-bar-inner {
+            background-image: repeating-linear-gradient(
+                to right,
+                #00FFCC,
+                #00FFCC 4px,
+                transparent 4px,
+                transparent 6px
+            );
+            transition: width 0.3s steps(5, end);
+        }
+
+        /* Screen Transitions */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        .dither-bg {
+            background-image: repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), repeating-linear-gradient(45deg, #000 25%, #2D1B36 25%, #2D1B36 75%, #000 75%, #000);
+            background-position: 0 0, 2px 2px;
+            background-size: 4px 4px;
+        }
+    </style>
+</head>
+<body class="font-body-sm text-body-sm h-[100dvh] w-screen relative">
+
+<div class="screen active z-50 bg-[#2D1B36]" id="screen-splash" onclick="transitionTo('screen-intro')">
+    <div class="retro-box p-4 flex flex-col items-center">
+        <img alt="Avatar Rabebop" class="w-32 h-32 pixelated mb-4 border-2 border-[#FFF700]" src="rabebop.png"/>
+        <p class="font-headline-md text-headline-md text-[#FFF700]">Created by RABEBOP</p>
+        <p class="mt-4 animate-pulse">Tap to Start</p>
+    </div>
+</div>
+
+<div class="screen z-40 bg-surface-container" id="screen-intro" onclick="startBattle()">
+    <img alt="Player walking" class="w-48 h-48 pixelated animate-bounce" src="player.png"/>
+    <div class="absolute bottom-10 w-full px-4">
+        <div class="retro-box p-4 h-32 flex items-center">
+            <p class="font-dialogue-text text-dialogue-text text-white" id="intro-text"></p>
+        </div>
+    </div>
+</div>
+
+<div class="screen z-30 justify-between py-4 px-2" id="screen-battle">
+    <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile border-b-4 border-primary-container h-16 invisible">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary-fixed">stadia_controller</span>
+            <span class="font-headline-md text-headline-md text-primary-fixed">BATTLE_SYSTEM_v1.0</span>
+        </div>
+    </header>
+
+    <div class="w-full flex justify-between items-start mt-16 px-2">
+        <div class="retro-box p-2 w-48 bg-[#2D1B36]">
+            <p class="font-label-bold text-label-bold text-white uppercase">APERITIVO Lv.18</p>
+            <div class="w-full h-4 bg-black border border-[#949277] mt-1 relative overflow-hidden">
+                <div class="h-full hp-bar-inner w-full" id="enemy-hp"></div>
+            </div>
+        </div>
+        <img alt="Enemy Sprite" class="w-32 h-32 pixelated relative top-8 right-4" id="enemy-sprite" src="spritz.png"/>
+    </div>
+
+    <div class="w-full flex justify-between items-end mb-4 px-2">
+        <img alt="Player Sprite" class="w-32 h-32 pixelated relative -bottom-4 left-4" id="player-sprite" src="player.png"/>
+        <div class="retro-box p-2 w-48 bg-[#2D1B36]">
+            <p class="font-label-bold text-label-bold text-white uppercase">TU Lv.18</p>
+            <div class="w-full h-4 bg-black border border-[#949277] mt-1 relative overflow-hidden">
+                <div class="h-full hp-bar-inner w-full" id="player-hp"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full h-48 relative mb-16 px-2">
+        <div class="retro-box p-4 h-full w-full absolute top-0 left-0 z-20 cursor hidden" id="dialogue-box" onclick="handleDialogueAdvance()">
+            <p class="font-dialogue-text text-dialogue-text text-white leading-relaxed" id="dialogue-text"></p>
+        </div>
+        <div class="h-full w-full absolute top-0 left-0 z-10 grid grid-cols-2 grid-rows-2 gap-1 p-1" id="action-menu">
+            <button class="retro-button font-headline-md text-headline-md uppercase flex items-center justify-center" onclick="handleAttack()">ATTACCA</button>
+            <button class="retro-button font-headline-md text-headline-md uppercase flex items-center justify-center" onclick="handleMenuAction('ZAINO', 'Usi TAGLIERE DI SALUMI. La tua difesa aumenta!')">ZAINO</button>
+            <button class="retro-button font-headline-md text-headline-md uppercase flex items-center justify-center" onclick="handleMenuAction('SQUADRA', 'I tuoi alleati sono già tutti al bar a ordinare!')">SQUADRA</button>
+            <button class="retro-button font-headline-md text-headline-md uppercase flex items-center justify-center" onclick="handleMenuAction('FUGA', 'Il Barista ti blocca la strada! Impossibile scappare!')">FUGA</button>
+        </div>
+    </div>
+
+    <nav class="fixed bottom-0 left-0 w-full z-50 grid grid-cols-4 gap-gutter p-container-padding bg-surface border-t-4 border-primary-container invisible h-16"></nav>
+</div>
+
+<div class="screen z-50 dither-bg p-4 flex-col justify-center items-center" id="screen-victory">
+    <div class="retro-box p-6 w-full max-w-sm text-center bg-[#2D1B36]">
+        <p class="font-dialogue-text text-dialogue-text text-[#FFF700] mb-4" id="victory-text"></p>
+        <p class="font-body-lg text-body-lg text-white hidden" id="invite-text"></p>
+        <button class="retro-button mt-6 px-4 py-2 font-headline-md text-headline-md uppercase hidden w-full" id="restart-btn" onclick="location.reload()">RICOMINCIA</button>
+    </div>
+</div>
+
+<script>
+        // Game State Variables
+        let attackPhase = 0;
+        let isTyping = false;
+        let dialogueQueue = [];
+        let currentCallback = null;
+
+        const uiElements = {
+            dialogueBox: document.getElementById('dialogue-box'),
+            dialogueText: document.getElementById('dialogue-text'),
+            actionMenu: document.getElementById('action-menu'),
+            enemyHp: document.getElementById('enemy-hp'),
+            enemySprite: document.getElementById('enemy-sprite')
+        };
+
+        // Screen Transitions
+        function transitionTo(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            
+            if(screenId === 'screen-intro') {
+                typeText("...", "intro-text");
+            }
+        }
+
+        // Battle Start Logic
+        function startBattle() {
+            transitionTo('screen-battle');
+            showDialogue("Un APERITIVO selvatico ti sbarra la strada!", () => {
+                showMenu();
+            });
+        }
+
+        // Typewriter Effect
+        function typeText(text, elementId = 'dialogue-text', speed = 30) {
+            return new Promise(resolve => {
+                isTyping = true;
+                const el = document.getElementById(elementId);
+                el.innerHTML = '';
+                let i = 0;
+                
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        el.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, speed);
+                    } else {
+                        isTyping = false;
+                        resolve();
+                    }
+                };
+                typeWriter();
+            });
+        }
+
+        function showDialogue(text, callback = null) {
+            uiElements.actionMenu.classList.add('hidden');
+            uiElements.dialogueBox.classList.remove('hidden');
+            currentCallback = callback;
+            typeText(text);
+        }
+
+        function showMenu() {
+            uiElements.dialogueBox.classList.add('hidden');
+            uiElements.actionMenu.classList.remove('hidden');
+        }
+
+        function handleDialogueAdvance() {
+            if (isTyping) return; 
+            
+            if (dialogueQueue.length > 0) {
+                const nextText = dialogueQueue.shift();
+                showDialogue(nextText, currentCallback);
+            } else if (currentCallback) {
+                const cb = currentCallback;
+                currentCallback = null;
+                cb();
+            } else {
+                showMenu();
+            }
+        }
+
+        // Menu Actions Logic
+        function handleMenuAction(actionName, message) {
+            showDialogue(message);
+        }
+
+        // Attack Logic
+        async function handleAttack() {
+            attackPhase++;
+            
+            if (attackPhase === 1) {
+                showDialogue("TU usi SPRITZ! È superefficace!", async () => {
+                    uiElements.enemySprite.classList.add('shake');
+                    uiElements.enemyHp.style.width = '66%';
+                    setTimeout(() => {
+                        uiElements.enemySprite.classList.remove('shake');
+                        showMenu();
+                    }, 500);
+                });
+            } else if (attackPhase === 2) {
+                showDialogue("TU usi NEGRONI! Brindisi Critico!", async () => {
+                    uiElements.enemySprite.classList.add('shake');
+                    uiElements.enemyHp.style.width = '33%';
+                    setTimeout(() => {
+                        uiElements.enemySprite.classList.remove('shake');
+                        showMenu();
+                    }, 500);
+                });
+            } else if (attackPhase === 3) {
+                showDialogue("TU usi GINTONNY FINALE! Colpo Definitivo!", async () => {
+                    uiElements.enemySprite.classList.add('shake');
+                    uiElements.enemyHp.style.width = '0%';
+                    
+                    setTimeout(() => {
+                        uiElements.enemySprite.classList.remove('shake');
+                        uiElements.enemySprite.classList.add('faint');
+                        
+                        setTimeout(() => {
+                            endBattle();
+                        }, 1000);
+                    }, 500);
+                });
+            }
+        }
+
+        // Victory Logic
+        function endBattle() {
+            transitionTo('screen-victory');
+            
+            const victoryText = "L'APERITIVO selvatico è esausto! Hai guadagnato 1800 Punti Esperienza!";
+            const inviteText = "VITTORIA! L'appuntamento è evoluto in: APERITIVO. Ci vediamo OGGI alle ore 18:00 al solito bar.";
+            
+            typeText(victoryText, 'victory-text', 30).then(() => {
+                setTimeout(() => {
+                    const inviteEl = document.getElementById('invite-text');
+                    inviteEl.classList.remove('hidden');
+                    typeText(inviteText, 'invite-text', 40).then(() => {
+                        document.getElementById('restart-btn').classList.remove('hidden');
+                    });
+                }, 1000);
+            });
+        }
+</script>
+</body>
+</html>
