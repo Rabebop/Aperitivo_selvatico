@@ -152,7 +152,7 @@
     </script>
     <style>
         body {
-            background-color: #2D1B36; /* Deep Plum Purple */
+            background-color: #A784F9; /* Deep Plum Purple */
             color: #f5d9fe;
             overflow: hidden;
             touch-action: none;
@@ -169,7 +169,7 @@
 
         .retro-button {
             border: 2px solid #FFF700;
-            background-color: #2D1B36;
+            background-color: #A784F9;
             color: #f5d9fe;
             transition: all 0.1s steps(2, end);
         }
@@ -252,7 +252,7 @@
         }
 
         .dither-bg {
-            background-image: repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), repeating-linear-gradient(45deg, #000 25%, #2D1B36 25%, #2D1B36 75%, #000 75%, #000);
+            background-image: repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), repeating-linear-gradient(45deg, #000 25%, #A784F9 25%, #A784F9 75%, #000 75%, #000);
             background-position: 0 0, 2px 2px;
             background-size: 4px 4px;
         }
@@ -260,7 +260,7 @@
 </head>
 <body class="font-body-sm text-body-sm h-[100dvh] w-screen relative">
 
-<div class="screen active z-50 bg-[#2D1B36]" id="screen-splash" onclick="transitionTo('screen-intro')">
+<div class="screen active z-50 bg-[#A784F9]" id="screen-splash" onclick="transitionTo('screen-intro')">
     <div class="retro-box p-4 flex flex-col items-center">
         <img alt="Avatar Rabebop" class="w-32 h-32 pixelated mb-4 border-2 border-[#FFF700]" src="rabebop.png"/>
         <p class="font-headline-md text-headline-md text-[#FFF700]">Created by RABEBOP</p>
@@ -286,7 +286,7 @@
     </header>
 
     <div class="w-full flex justify-between items-start mt-16 px-2">
-        <div class="retro-box p-2 w-48 bg-[#2D1B36]">
+        <div class="retro-box p-2 w-48 bg-[#A784F9]">
             <p class="font-label-bold text-label-bold text-white uppercase">APERITIVO Lv.18</p>
             <div class="w-full h-4 bg-black border border-[#949277] mt-1 relative overflow-hidden">
                 <div class="h-full hp-bar-inner w-full" id="enemy-hp"></div>
@@ -297,7 +297,7 @@
 
     <div class="w-full flex justify-between items-end mb-4 px-2">
         <img alt="Player Sprite" class="w-32 h-32 pixelated relative -bottom-4 left-4" id="player-sprite" src="player.png"/>
-        <div class="retro-box p-2 w-48 bg-[#2D1B36]">
+        <div class="retro-box p-2 w-48 bg-[#A784F9]">
             <p class="font-label-bold text-label-bold text-white uppercase">TU Lv.18</p>
             <div class="w-full h-4 bg-black border border-[#949277] mt-1 relative overflow-hidden">
                 <div class="h-full hp-bar-inner w-full" id="player-hp"></div>
@@ -321,7 +321,7 @@
 </div>
 
 <div class="screen z-50 dither-bg p-4 flex-col justify-center items-center" id="screen-victory">
-    <div class="retro-box p-6 w-full max-w-sm text-center bg-[#2D1B36]">
+    <div class="retro-box p-6 w-full max-w-sm text-center bg-[#A784F9]">
         <p class="font-dialogue-text text-dialogue-text text-[#FFF700] mb-4" id="victory-text"></p>
         <p class="font-body-lg text-body-lg text-white hidden" id="invite-text"></p>
         <button class="retro-button mt-6 px-4 py-2 font-headline-md text-headline-md uppercase hidden w-full" id="restart-btn" onclick="location.reload()">RICOMINCIA</button>
